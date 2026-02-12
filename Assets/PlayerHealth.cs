@@ -12,9 +12,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI de Corazones")]
     public GameObject heartPrefab;    
     public Transform heartContainer;  
-
-    [Header("Respawn")]
-    public Transform spawnPoint; // Arrastra aquí el objeto SpawnPoint
+    private List<GameObject> hearts = new List<GameObject>();
 
     [Header("Efectos Visuales")]
     public SpriteRenderer spriteRenderer; 
@@ -25,7 +23,11 @@ public class PlayerHealth : MonoBehaviour
     public float invincibilityDuration = 1.5f;
     private bool isInvincible = false;
 
+    [Header("Referencias")]
     public GameOverManager gameOverManager;
+
+    [Header("Respawn")]
+    public Transform spawnPoint;
 
     void Start()
     {
@@ -38,30 +40,24 @@ public class PlayerHealth : MonoBehaviour
     public void DrawHearts()
     {
         foreach (Transform child in heartContainer) { Destroy(child.gameObject); }
+        hearts.Clear();
         for (int i = 0; i < currentHealth; i++)
         {
             Instantiate(heartPrefab, heartContainer);
         }
     }
 
-    public void TakeDamage(int damage)
+    // --- NUEVO MÉTODO PARA CURAR ---
+    public void AddHealth(int amount)
     {
-        if (isInvincible || currentHealth <= 0) return;
-
-        currentHealth -= damage;
-        DrawHearts();
-
-        if (currentHealth <= 0)
+        if (currentHealth < maxHealth)
         {
-            Die();
-        }
-        else
-        {
-            StartCoroutine(HurtEffect());
+            currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
+            DrawHearts();
+            Debug.Log("Vida recuperada. Vida actual: " + currentHealth);
         }
     }
-
-    // NUEVA FUNCIÓN: Se llama cuando cae al vacío
+    
     public void FallRespawn()
     {
         currentHealth--; // Quitar una vida
@@ -84,6 +80,17 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void TakeDamage(int damage)
+    {
+        if (isInvincible || currentHealth <= 0) return;
+
+        currentHealth -= damage;
+        DrawHearts();
+
+        if (currentHealth <= 0) Die();
+        else StartCoroutine(HurtEffect());
+    }
+
     IEnumerator HurtEffect()
     {
         isInvincible = true;
@@ -98,6 +105,7 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             timer += 0.1f;
         }
+
         if(spriteRenderer != null) spriteRenderer.enabled = true;
         isInvincible = false;
     }

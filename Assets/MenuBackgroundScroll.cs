@@ -2,26 +2,18 @@ using UnityEngine;
 
 public class MenuBackgroundScroll : MonoBehaviour
 {
-    public float speed = 0.5f; 
-    private float width;
-    private Vector3 startPos;
-
-    void Start()
-    {
-        startPos = transform.position;
-        // Calcula el ancho del sprite para saber cuándo repetir
-        width = GetComponent<SpriteRenderer>().bounds.size.x;
-    }
+    public float speed = 10f; // Aumentamos la velocidad para que sea obvio
 
     void Update()
     {
-        // Mueve el fondo a la izquierda
+        // Movimiento simple y directo
         transform.Translate(Vector3.left * speed * Time.deltaTime);
 
-        // Si el fondo se ha desplazado todo su ancho, vuelve a la posición inicial
-        if (transform.position.x < startPos.x - width)
+        // Si se aleja demasiado (ej. -50), lo mandamos al otro lado (50)
+        // Esto es solo para probar que se mueve
+        if (transform.position.x < -50f)
         {
-            transform.position = startPos;
+            transform.position = new Vector3(50f, transform.position.y, transform.position.z);
         }
     }
 }
