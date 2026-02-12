@@ -9,11 +9,10 @@ public class PlayerShooting : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1")) 
         {
-            // Creamos la bala
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             
-            // Le pasamos la dirección basada en la escala del jugador
-            // Si el Player tiene escala X = 1 va a la derecha, si es -1 va a la izquierda
+            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+            
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             if (bulletScript != null)
             {

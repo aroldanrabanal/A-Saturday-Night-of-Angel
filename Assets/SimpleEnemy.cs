@@ -40,12 +40,14 @@ public class SimpleEnemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        // Solo hacemos daño si el objeto tiene el TAG Player
+        // Y nos aseguramos de que ESTE objeto (el enemigo) sea realmente un enemigo
+        if (collision.gameObject.CompareTag("Player") && gameObject.CompareTag("Enemy"))
         {
             PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(1); // El enemigo quita 1 vida
+                playerHealth.TakeDamage(1);
             }
         }
     }

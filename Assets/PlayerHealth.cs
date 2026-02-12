@@ -39,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void DrawHearts()
     {
+        
         foreach (Transform child in heartContainer) { Destroy(child.gameObject); }
         hearts.Clear();
         for (int i = 0; i < currentHealth; i++)
