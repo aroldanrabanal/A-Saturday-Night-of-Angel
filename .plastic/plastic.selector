@@ -1,0 +1,4 @@
+repository "A Saturday Night of Angel/A Saturday Night of Angel 2026-02-10_09-09-53@6872806940995@cloud"
+  path "/"
+    br "/main"
+    co "/main"
