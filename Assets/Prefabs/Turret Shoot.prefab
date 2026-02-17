@@ -176,7 +176,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &3613270732457564013
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -228,8 +228,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StaticShooter
   bulletPrefab: {fileID: 2596542138769671106, guid: 1d4038a6399a9474186021bc95141960, type: 3}
   firePoint: {fileID: 7816333292027827320}
-  fireRate: 2
+  player: {fileID: 7489065933235147603, guid: 61b3a4f7044ecae46b23b6d96a7acfae, type: 3}
+  fireRate: 1.5
   bulletDirection: -1
+  visionRange: 13
 --- !u!114 &4889579340319238184
 MonoBehaviour:
   m_ObjectHideFlags: 0

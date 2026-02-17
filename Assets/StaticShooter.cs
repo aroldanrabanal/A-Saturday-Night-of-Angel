@@ -2,27 +2,66 @@ using UnityEngine;
 
 public class StaticShooter : MonoBehaviour
 {
+    [Header("Referencias")]
     public GameObject bulletPrefab; 
     public Transform firePoint;     
-    public float fireRate = 2f;     
+    public Transform player;
+
+    [Header("Configuración")]
+    public float fireRate = 1.5f;     
     public float bulletDirection = -1f;
+    public float visionRange = 13f;
 
     private float timer;
-    private Animator anim; // Referencia al Animator
+    private Animator anim;
+    private bool playerInSight;
 
     void Start()
     {
-        anim = GetComponent<Animator>(); // Obtenemos el Animator al iniciar
+        anim = GetComponent<Animator>();
+        if (player == null) player = GameObject.FindGameObjectWithTag("Player")?.transform;
     }
 
     void Update()
     {
-        timer += Time.deltaTime;
+        CheckPlayerVisibility();
 
-        if (timer >= fireRate)
+        if (playerInSight)
         {
-            Shoot();
-            timer = 0;
+            timer += Time.deltaTime;
+            if (timer >= fireRate)
+            {
+                Shoot();
+                timer = 0;
+            }
+        }
+        else
+        {
+            timer = 0; 
+        }
+    }
+
+    void CheckPlayerVisibility()
+    {
+        if (player == null) return;
+
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        
+        if (distanceToPlayer <= visionRange)
+        {
+            if (!playerInSight)
+            {
+                playerInSight = true;
+                if (anim != null) anim.SetBool("IsAlert", true);
+            }
+        }
+        else
+        {
+            if (playerInSight)
+            {
+                playerInSight = false;
+                if (anim != null) anim.SetBool("IsAlert", false);
+            }
         }
     }
 
@@ -30,7 +69,6 @@ public class StaticShooter : MonoBehaviour
     {
         if (bulletPrefab == null || firePoint == null) return;
 
-        // ACTIVAR ANIMACIÓN: Llama al Trigger "Shoot" en el Animator
         if (anim != null) anim.SetTrigger("Shoot");
 
         GameObject newBullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
@@ -41,5 +79,11 @@ public class StaticShooter : MonoBehaviour
             scriptBala.SetDirection(bulletDirection);
             Physics2D.IgnoreCollision(newBullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, visionRange);
     }
 }

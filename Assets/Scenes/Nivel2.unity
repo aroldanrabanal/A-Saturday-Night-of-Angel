@@ -3087,6 +3087,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 408316162112124570, guid: bbae809cc3bb98c4b93935ca10b7d7eb, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 6580646087294205527}
+    - target: {fileID: 408316162112124570, guid: bbae809cc3bb98c4b93935ca10b7d7eb, type: 3}
+      propertyPath: fireRate
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 408316162112124570, guid: bbae809cc3bb98c4b93935ca10b7d7eb, type: 3}
+      propertyPath: visionRange
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2805422426828171469, guid: bbae809cc3bb98c4b93935ca10b7d7eb, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5984653596344852926, guid: bbae809cc3bb98c4b93935ca10b7d7eb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 24.51
