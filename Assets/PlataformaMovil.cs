@@ -15,10 +15,8 @@ public class PlataformaMovil : MonoBehaviour
     }
 
     void FixedUpdate() {
-        // 1. Mover la plataforma
         MoverPlataforma();
 
-        // 2. Si el jugador está encima, moverlo con nosotros
         if (jugadorEncima != null) {
             Vector3 movimientoPlataforma = transform.position - posicionPrevia;
             jugadorEncima.transform.position += movimientoPlataforma;
@@ -35,7 +33,6 @@ public class PlataformaMovil : MonoBehaviour
         transform.Translate(Vector2.right * direccion * velocidad * Time.fixedDeltaTime);
     }
 
-    // Usamos Trigger si tienes un objeto invisible encima o Collision si es la superficie
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
             jugadorEncima = collision.gameObject;

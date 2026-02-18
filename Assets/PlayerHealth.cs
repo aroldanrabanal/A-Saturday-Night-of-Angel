@@ -48,7 +48,6 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // --- NUEVO MÉTODO PARA CURAR ---
     public void AddHealth(int amount)
     {
         if (currentHealth < maxHealth)
@@ -61,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
     
     public void FallRespawn()
     {
-        currentHealth--; // Quitar una vida
+        currentHealth--;
         DrawHearts();
 
         if (currentHealth <= 0)
@@ -70,14 +69,12 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            // Mover al jugador al punto de inicio
             transform.position = spawnPoint.position;
             
-            // Si usas Rigidbody2D, es bueno resetear la velocidad para que no aparezca cayendo
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
             if(rb != null) rb.linearVelocity = Vector2.zero;
 
-            StartCoroutine(HurtEffect()); // Efecto de parpadeo al reaparecer
+            StartCoroutine(HurtEffect());
         }
     }
 

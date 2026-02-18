@@ -5,7 +5,7 @@ public class SimpleEnemy : MonoBehaviour
     public float speed = 2f;
     public int health = 3;
     public float wallCheckDistance = 0.5f;
-    public LayerMask wallLayer; // Selecciona "Ground" en el inspector
+    public LayerMask wallLayer; 
     
     private Rigidbody2D rb;
     private bool movingRight = true;
@@ -15,13 +15,10 @@ public class SimpleEnemy : MonoBehaviour
     }
 
     void Update() {
-        // Moverse horizontalmente
         rb.linearVelocity = new Vector2(movingRight ? speed : -speed, rb.linearVelocity.y);
 
-        // Detectar si hay una pared o se acaba el suelo delante
         RaycastHit2D wallInfo = Physics2D.Raycast(transform.position, movingRight ? Vector2.right : Vector2.left, wallCheckDistance, wallLayer);
         
-        // Si choca con algo, gira
         if (wallInfo.collider == true) {
             Flip();
         }
@@ -40,8 +37,6 @@ public class SimpleEnemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Solo hacemos daño si el objeto tiene el TAG Player
-        // Y nos aseguramos de que ESTE objeto (el enemigo) sea realmente un enemigo
         if (collision.gameObject.CompareTag("Player") && gameObject.CompareTag("Enemy"))
         {
             PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
@@ -52,7 +47,6 @@ public class SimpleEnemy : MonoBehaviour
         }
     }
     void Die() {
-        // Aquí podrías instanciar un efecto de explosión del pack de assets
         Destroy(gameObject);
     }
 }

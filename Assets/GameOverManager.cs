@@ -1,22 +1,22 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Para reiniciar escenas
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
     public GameObject gameOverPanel;
 
     public void ShowGameOver() {
-        gameOverPanel.SetActive(true); // Muestra el panel
-        Time.timeScale = 0f;          // Pausa el juego
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;          
     }
 
     public void RestartGame() {
-        Time.timeScale = 1f;          // Reanuda el tiempo antes de cargar
+        Time.timeScale = 1f;          
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitGame() {
         Debug.Log("Saliendo del juego...");
-        Application.Quit(); // Esto solo funciona en el juego exportado (.exe)
+        Application.Quit();
     }
 }

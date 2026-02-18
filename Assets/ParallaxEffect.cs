@@ -4,7 +4,7 @@ public class ParallaxEffect : MonoBehaviour
 {
     private float length, startPos;
     public GameObject cam;
-    public float parallaxEffect; // 1 = se mueve con el personaje, 0 = no se mueve
+    public float parallaxEffect;
 
     void Start()
     {

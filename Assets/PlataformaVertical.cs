@@ -8,7 +8,7 @@ public class PlataformaVertical : MonoBehaviour
     
     private Vector3 posicionInicial;
     private Vector3 posicionPrevia;
-    private int direccion = 1; // 1 para arriba, -1 para abajo
+    private int direccion = 1;
     private GameObject jugadorEncima;
 
     void Start() {
@@ -17,10 +17,8 @@ public class PlataformaVertical : MonoBehaviour
     }
 
     void FixedUpdate() {
-        // 1. Mover la plataforma
         MoverPlataforma();
 
-        // 2. Si el jugador está encima, moverlo verticalmente con ella
         if (jugadorEncima != null) {
             Vector3 movimientoPlataforma = transform.position - posicionPrevia;
             jugadorEncima.transform.position += movimientoPlataforma;
@@ -30,14 +28,11 @@ public class PlataformaVertical : MonoBehaviour
     }
 
     void MoverPlataforma() {
-        // Límites basados en la Y inicial
         float limiteSuperior = posicionInicial.y + distancia;
         float limiteInferior = posicionInicial.y;
 
-        // Movimiento vertical
         transform.Translate(Vector2.up * direccion * velocidad * Time.fixedDeltaTime);
 
-        // Cambiar dirección al tocar límites
         if (transform.position.y >= limiteSuperior) {
             direccion = -1;
         }

@@ -16,7 +16,6 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth -= damage;
         
-        // Activa el Trigger "Hurt" en tu Animator
         if (anim != null) anim.SetTrigger("Hurt");
         
         if (currentHealth <= 0)
@@ -27,10 +26,8 @@ public class EnemyHealth : MonoBehaviour
     
     void Die()
     {
-        // Activa el Trigger "Die"
         if (anim != null) anim.SetTrigger("Die");
         
-        // Desactiva colisiones para que no estorbe al morir
         GetComponent<Collider2D>().enabled = false;
         Destroy(gameObject, 0.5f);
     }

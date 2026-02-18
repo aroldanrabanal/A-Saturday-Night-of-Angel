@@ -21,18 +21,14 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update() {
-        // --- MOVIMIENTO ---
         float moveInput = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(moveInput * speed, rb.linearVelocity.y);
 
-        // Actualizamos el Float "Speed" para la Run Animation
         anim.SetFloat("Speed", Mathf.Abs(moveInput));
 
-        // Girar el sprite
         if (moveInput > 0) transform.localScale = new Vector3(4, 4, 4);
         else if (moveInput < 0) transform.localScale = new Vector3(-4, 4, 4);
 
-        // --- SALTO Y DOBLE SALTO ---
         if (isGrounded) {
             extraJumps = extraJumpsValue;
         }
@@ -46,12 +42,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // --- PARÁMETROS DEL ANIMATOR ---
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("VerticalVelocity", rb.linearVelocity.y);
 
-        // --- DISPARO (Shoot Animation) ---
-        // Cambiamos el nombre del trigger en el código para que sea idéntico al Animator
         if (Input.GetButtonDown("Fire1")) {
             anim.SetTrigger("Shoot"); 
         }
@@ -59,7 +52,6 @@ public class PlayerController : MonoBehaviour
 
     void ExecuteJump() {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        // Disparamos el trigger para reiniciar la Jump Animation
         anim.SetTrigger("Jump"); 
     }
 
